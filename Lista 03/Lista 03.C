@@ -436,15 +436,15 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
 3 - Escreva um programa que receba na funcao main() 2 valores inteiro. Escreva
     uma funcao para cada operacoes aritmeticas e passe como parametro os 2
     valores recebidos na funcao main(). Retorne os resultados usando o comando
-    return e imprima-os no video na funcao main().
+    return e imprima-os no video na funcao main(). (FEITO)
 
 4 - Aproveitando o programa anterior inclua a selecao das operacoes aritmeticas
     para transforma-lo em uma calculadora. (utilize o comando switch). As operacoes
     aritmeticas devem estar em funcoes. O resultado deve ser mostrado na
-    funcao main()
+    funcao main() (FEITO)
 
 5 - Escreva um programa que receba um numero N. Escreva uma função que
     retorne a soma dos algarismos de N!. O resultado deve ser mostrado na funcao
     main().
-    Ex: se N = 4, N! = 24. Logo, a soma de seus algarismos ´e 2 + 4 = 6.
+    Ex: se N = 4, N! = 24. Logo, a soma de seus algarismos ´e 2 + 4 = 6. (FEITO)
 */
