@@ -397,11 +397,11 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
 
 1 - Receba 2 string de ate 10 caracteres via teclado na funcao main() e noutra 
     funcao compare-as mostrando como resultado se são IGUAIS ou DIFERENTES na funcao
-    main(). (Declare os vetores como variavel global)
+    main(). (Declare os vetores como variavel global) (FEITO)
 
 2 - Escreva um programa para receber 5 nomes, com até 7 caracteres, via teclado
     e imprima-os no video no seguinte formato:(Declare os vetores como variavel
-    global)
+    global) (FEITO)
 
             10        20        30        40        50
     12345678901234567890123456789012345678901234567890
@@ -410,10 +410,10 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
                           nome3
 
 3 - Receba via teclado uma cadeia de caracteres (10) e converta todos os caracteres
-    para letras maiusculas. 
+    para letras maiusculas. (FEITO)
 
 4 - Receba via teclado uma cadeia de caracteres (10) e converta todos os caracteres
-    para letras minusculas.
+    para letras minusculas. (FEITO)
 
 5 - Faca um programa que leia uma palavra (maximo de 20 letras) em uma funcao
     e some 1 no valor ASCII de cada caractere da palavra em outra funcao. Na sua
