@@ -338,10 +338,10 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
 1 - Receba via teclado valores do tipo int para uma matriz 5 x 5. Receba via
     teclado um valor x. O programa dever fazer a busca desse valor x na matriz
     e, ao final escrever a localizacao (linha e coluna) ou uma mensagem de
-    ”nao encontrado”.
+    ”nao encontrado”. (FEITO)
 
 2 - Escreva um programa para receber via teclado em vetores 3 int, 3 long,
-    3 unsigned, 3 float e 3 double e imprima-os no video no seguinte formato:
+    3 unsigned, 3 float e 3 double e imprima-os no video no seguinte formato: (FEITO, novamente não entendi como era para apresentar)
 
             10        20        30        40        50
     12345678901234567890123456789012345678901234567890
@@ -353,16 +353,16 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
                 float               double
 
 3 - Receba via teclado dez valores inteiros e ordene por ordem crescente assim
-    que sao digitados. Guarde-os em um vetor. Mostre ao final os valores ordenados.
+    que sao digitados. Guarde-os em um vetor. Mostre ao final os valores ordenados. (FEITO)
 
 4 - Defina 2 vetores bidimensionais do tipo inteiro de 2x3. Escreva um programa
     que recebe os dados via teclado para esses 2 vetores. Usando o operador
     subtracao "-", subtraia os elementos de mesmo indice dos 2 vetores
     e guarde o resultado num 3. vetor. Imprima na tela o indice, os valores e
-    o resultado dos 6 elementos dos vetores.
+    o resultado dos 6 elementos dos vetores. (FEITO)
 
 5 - Escreva um programa que receba um vetor e o decomponha em dois outros vetores.
     Um contendo as componentes de ordem ímpar e o outro contendo as componentes
     de ordem par. Por exemplo, se o vetor dado for v = {3, 5, 6, 8, 1, 4, 2, 3, 7},
-    o programa deve gerar os vetores u = {3, 6, 1, 2, 7} e w = {5, 8, 4, 3}.
+    o programa deve gerar os vetores u = {3, 6, 1, 2, 7} e w = {5, 8, 4, 3}. (FEITO)
 */
