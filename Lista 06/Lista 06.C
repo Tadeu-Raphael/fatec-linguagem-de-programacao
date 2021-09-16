@@ -512,19 +512,19 @@ OBS.: Faça um loop infinito e defina uma saida em todos os exercícios.
 
 1 - Escreva um programa para determinar a idade de uma pessoa, em anos, meses e
     dias, recebendo via teclado a data (dia, mes e ano) do seu nascimento e a
-    data (dia, mes e ano) atual.
+    data (dia, mes e ano) atual. (Tomar cuidado com bisexto) (FEITO, porém incompleto pois não sabia fazer os dias)
 
 2 - Escreva um programa que receba via teclado 2 numeros inteiros e
-    imprima-os no video com o resultado das 4 operacoes aritmeticas.
+    imprima-os no video com o resultado das 4 operacoes aritmeticas. (FEITO)
 
 3 - Reescreva o exercicio anterior utilizando operadores de atribuicao
-    composta.
+    composta. (FEITO, porém com problema na divisão e subtração)
 
 4 - Escreva um programa que receba via teclado 2 numeros inteiros e execute
     as operacoes logicas bit a bit AND, OU, OU EXCLUSIVO e imprima-os no
-    video no formato decimal e hexadecimal.
+    video no formato decimal e hexadecimal. (FEITO, mas não sei se está certo)
 
-5 - Escreva um programa que tenha o menu abaixo.
+5 - Escreva um programa que tenha o menu abaixo. (FEITO)
        1 - transforma graus Celsius em Fahrenheit e Kelvin
        2 - transforma graus Fahrenheit em Celsius e Kelvin
        3 - transforma graus Kelvin em Celsius e Fahrenheit

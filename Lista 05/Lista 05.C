@@ -418,5 +418,5 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
 5 - Faca um programa que leia uma palavra (maximo de 20 letras) em uma funcao
     e some 1 no valor ASCII de cada caractere da palavra em outra funcao. Na sua
     funcao main() imprima a string resultante. (Declare o vetor como variavel
-    global)
+    global) (FEITO)
 */
