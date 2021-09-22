@@ -6,74 +6,41 @@
 //Desafio 01 - Grupo 06
 //Alunos: Tadeu Raphael & Henrique Berg
 
-//Observações: Após diversas tentativas em tentar manipular a matriz dentro de um unico arquivo, e falhando várias vezes, decidimos
-//             passar tudo para arquivos diferentes, dessa forma conseguiamos, ler sem ter problemas.
-
-//Problemas atuais: Não estou conseguindo manipular tudo de dentro de só 1 arquivo. A leitura acaba lendo só o primeiro elemento dos
-//                  vetores inseridos. Outro problema recente que descobre é na hora de fazer as comparações entre uma String e um buffer
-//                  retornado do fread
-
-//Modificações: Em vez de usar 1 arquivo, estou usando um para cada valor. No exercício 3 e 4 estou fazendo algo mais simples.
-
 // --------------- Variáveis globais --------------------------
 
 //Criação das 2 matrizes
 char empresa[3][30];
 char telefone[3][12];
 
+//Criação de 2 arquivos
+FILE *arquivoEmpresa;
+FILE *arquivoTelefone;
+
 // --------------- Declaração das Funções Globais -------------
 
 //Função que escreve os dados
 //Status: Completa
-void escreverDados(char empresa[3][30],
-                   char telefone[3][12],
-                   FILE *arquivoEmpresa1,
-                   FILE *arquivoEmpresa2,
-                   FILE *arquivoEmpresa3,
-                   FILE *arquivoTelefone1,
-                   FILE *arquivoTelefone2,
-                   FILE *arquivoTelefone3);
+void escreverDados();
 
-//Função que lista todos os dados dos arquivos (PRINCIPAL DIFICULDADE PARA MANTER TUDO EM UM ARQUIVO)
+//Função que lista todos os dados dos arquivos
 //Status: Completa
-void listarDados(char empresa[3][30],
-                 char telefone[3][12],
-                 FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3);
+void listarDados();
 
 //Função para pesquisar a partir de um nome dado
-//Status: Problema na comparação de dados
-void pesquisarNomeCompleto(FILE *arquivoEmpresa1,
-                           FILE *arquivoEmpresa2,
-                           FILE *arquivoEmpresa3);
+//Status: Completo
+void pesquisarNomeCompleto();
 
 //Função para pesquisar a partir da primeira letra
-//Status: Problema na comparação de dados
-void pesquisarPrimeiraLetra(FILE *arquivoEmpresa1,
-                           FILE *arquivoEmpresa2,
-                           FILE *arquivoEmpresa3);
+//Status: Completo
+void pesquisarPrimeiraLetra();
 
 //Função para alterar dados
 //Status: Completa
-void alterarDados(FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3);
+void alterarDados();
 
 //Função para excluir dados
 //Status: Completa
-void excluiDados(FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3);
+void excluiDados();
 
 //Função Main()
 int main()
@@ -81,16 +48,13 @@ int main()
 
     setlocale(LC_ALL,"");
 
-    FILE *arquivoEmpresa1, *arquivoEmpresa2, *arquivoEmpresa3;
-    FILE *arquivoTelefone1, *arquivoTelefone2, *arquivoTelefone3;
-
     int valor;
 
     do{
 
         printf("\n\nDigite a sua opção\n");
-        printf("1 > Entrada de Dados\n");
-        printf("2 > Lista todos os dados na tela\n");
+        printf("1 > Entrada de Dados no Arquivo\n");
+        printf("2 > Listar Dados do Arquivo\n");
         printf("3 > Pesquisa uma empresa com o nome completo e mostra na tela\n");
         printf("4 > Pesquisa as empresas pela 1a letra e mostra todos na tela\n");
         printf("5 > Altera dados\n");
@@ -102,55 +66,27 @@ int main()
         switch(valor){
 
             case 1:
-                escreverDados(empresa,
-                              telefone,
-                              arquivoEmpresa1,
-                              arquivoEmpresa2,
-                              arquivoEmpresa3,
-                              arquivoTelefone1,
-                              arquivoTelefone2,
-                              arquivoTelefone3);
+                escreverDados();
             break;
 
             case 2:
-                listarDados(empresa,
-                            telefone,
-                            arquivoEmpresa1,
-                            arquivoEmpresa2,
-                            arquivoEmpresa3,
-                            arquivoTelefone1,
-                            arquivoTelefone2,
-                            arquivoTelefone3);
+                listarDados();
             break;
 
             case 3:
-                pesquisarNomeCompleto(arquivoEmpresa1,
-                                      arquivoEmpresa2,
-                                      arquivoEmpresa3);
+                pesquisarNomeCompleto();
             break;
 
             case 4:
-                pesquisarPrimeiraLetra(arquivoEmpresa1,
-                                       arquivoEmpresa2,
-                                       arquivoEmpresa3);
+                pesquisarPrimeiraLetra();
             break;
 
             case 5:
-                alterarDados(arquivoEmpresa1,
-                             arquivoEmpresa2,
-                             arquivoEmpresa3,
-                             arquivoTelefone1,
-                             arquivoTelefone2,
-                             arquivoTelefone3);
+                alterarDados();
             break;
 
             case 6:
-                excluiDados(arquivoEmpresa1,
-                             arquivoEmpresa2,
-                             arquivoEmpresa3,
-                             arquivoTelefone1,
-                             arquivoTelefone2,
-                             arquivoTelefone3);
+                excluiDados();
             break;
 
             case 7:
@@ -172,175 +108,99 @@ int main()
 
 //Função que escreve os dados
 //Status: Completa
-void escreverDados(char empresa[3][30],
-                   char telefone[3][12],
-                   FILE *arquivoEmpresa1,
-                   FILE *arquivoEmpresa2,
-                   FILE *arquivoEmpresa3,
-                   FILE *arquivoTelefone1,
-                   FILE *arquivoTelefone2,
-                   FILE *arquivoTelefone3){
+void escreverDados(){
 
     int cont;
+    getchar();
 
-    //Abrindo arquivos de Empresa
-    arquivoEmpresa1 = fopen("ArquivoEmpresa1.txt", "w");
-    arquivoEmpresa2 = fopen("ArquivoEmpresa2.txt", "w");
-    arquivoEmpresa3 = fopen("ArquivoEmpresa3.txt", "w");
-
-    //Abrindo arquivos de Telefone
-    arquivoTelefone1 = fopen("ArquivoTelefone1.txt", "w");
-    arquivoTelefone2 = fopen("ArquivoTelefone2.txt", "w");
-    arquivoTelefone3 = fopen("ArquivoTelefone3.txt", "w");
-
-    //Digitando nomes empresas
-    for(cont=0;cont<3;cont++){
-        printf("Nome da empresa %d: ", cont);
-        scanf("%s", &empresa[cont]);
-    }
-
-    //Digitando telefones
-    for(cont=0;cont<3;cont++){
-        printf("Telefone %d: ", cont);
-        scanf("%s", &telefone[cont]);
-    }
-
-    //Escrevendo valores de empresas nos arquivos
-    fwrite(empresa[0], sizeof(char), 20, arquivoEmpresa1);
-    fwrite(empresa[1], sizeof(char), 20, arquivoEmpresa2);
-    fwrite(empresa[2], sizeof(char), 20, arquivoEmpresa3);
-
-    //Escrevendo valores de telefones nos arquivos
-    fwrite(telefone[0], sizeof(char), 12, arquivoTelefone1);
-    fwrite(telefone[1], sizeof(char), 12, arquivoTelefone2);
-    fwrite(telefone[2], sizeof(char), 12, arquivoTelefone3);
-
-    //Fechando arquivos de empresas
-    fclose(arquivoEmpresa1);
-    fclose(arquivoEmpresa2);
-    fclose(arquivoEmpresa3);
-
-    //Fechando arquivos de telefones
-    fclose(arquivoTelefone1);
-    fclose(arquivoTelefone2);
-    fclose(arquivoTelefone3);
-
-}
-
-//Função que lista todos os dados dos arquivos (PRINCIPAL DIFICULDADE PARA MANTER TUDO EM UM ARQUIVO)
-//Status: Completa
-void listarDados(char empresa[3][30],
-                 char telefone[3][12],
-                 FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3){
-
-    int cont;
-    char buffer1[3][30], buffer2[3][12];
-
-    arquivoEmpresa1 = fopen("ArquivoEmpresa1.txt","r");
-    arquivoEmpresa2 = fopen("ArquivoEmpresa2.txt","r");
-    arquivoEmpresa3 = fopen("ArquivoEmpresa3.txt","r");
-
-    fseek(arquivoEmpresa1,0, SEEK_SET);
-    fseek(arquivoEmpresa2,0, SEEK_SET);
-    fseek(arquivoEmpresa3,0, SEEK_SET);
-
-    fread(buffer1[0],sizeof(char),30,arquivoEmpresa1);
-    fread(buffer1[1],sizeof(char),30,arquivoEmpresa2);
-    fread(buffer1[2],sizeof(char),30,arquivoEmpresa3);
-
-    printf("Empresas: %s, %s, %s\n", buffer1[0], buffer1[1], buffer1[2]);
-
-    arquivoTelefone1 = fopen("ArquivoTelefone1.txt", "r");
-    arquivoTelefone2 = fopen("ArquivoTelefone2.txt", "r");
-    arquivoTelefone3 = fopen("ArquivoTelefone3.txt", "r");
-
-    fseek(arquivoTelefone1,0, SEEK_SET);
-    fseek(arquivoTelefone2,0, SEEK_SET);
-    fseek(arquivoTelefone3,0, SEEK_SET);
-
-    fread(buffer2[0],sizeof(char),30,arquivoTelefone1);
-    fread(buffer2[1],sizeof(char),30,arquivoTelefone2);
-    fread(buffer2[2],sizeof(char),30,arquivoTelefone3);
-
-    printf("Telefones: %s, %s, %s\n", buffer2[0], buffer2[1], buffer2[2]);
-
-    fclose(arquivoEmpresa1);
-    fclose(arquivoEmpresa2);
-    fclose(arquivoEmpresa3);
-
-    fclose(arquivoTelefone1);
-    fclose(arquivoTelefone2);
-    fclose(arquivoTelefone3);
-
-}
-
-//Função para pesquisar a partir de um nome dado (Problema na comparação dos dados quando valor sai da fread()
-//Status: Problema na comparação de dados (abandonado)
-/*
-void pesquisarNomeCompleto(FILE *arquivoEmpresa1,
-                           FILE *arquivoEmpresa2,
-                           FILE *arquivoEmpresa3){
-
-    char nomeCompleto[30];
-    int cont, comparacao;
-
-    printf("Digite o nome completo: ");
-    scanf("%s", &nomeCompleto);
-
-    for(cont=0;cont<3;cont++){
-        comparacao = strcmp(nomeCompleto, empresa[cont]);
-        if(comparacao == 0){
-            printf("Empresa: %s | Estava no arquivo 1", empresa[cont]);
+    //Limpa os vetores
+    for(int cont=0;cont<3;cont++){
+        for(int cont2=0;cont2<30;cont2++){
+            empresa[cont][cont2] = 0;
+            telefone[cont][cont2] = 0;
         }
     }
 
-    if(comparacao != 0){
-            printf("Não encontrado");
+    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
+
+    for(cont=0;cont<3; cont++){
+        printf("Digite o valor da empresa %d: \n", cont+1);
+        gets(empresa[cont]);
+        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
     }
+
+    fclose(arquivoEmpresa);
+
+    arquivoTelefone = fopen("ArquivoTelefone.txt", "w");
+
+    for(cont=0;cont<3;cont++){
+        printf("Digite o valor do telefone %d: \n", cont+1);
+        gets(telefone[cont]);
+        fwrite(telefone[cont], sizeof(telefone[cont]), 1, arquivoTelefone);
+    }
+
+    fclose(arquivoTelefone);
 
 }
-*/
 
-//Função para pesquisar um nome dentro dos arquivos
-//Status: Completo, porém precisa ser alimentado pelo primeiro Item para funcionar
-void pesquisarNomeCompleto(FILE *arquivoEmpresa1,
-                           FILE *arquivoEmpresa2,
-                           FILE *arquivoEmpresa3){
+//Função que lista todos os dados dos arquivos
+//Status: Completa
+void listarDados(){
 
-    int escolha;
-    char valor[30];
+    int cont;
 
-    printf("Você está procurando por?\n");
-    printf("1 > Empresa\n");
-    printf("2 > Telefone\n");
-    scanf("%d", &escolha);
+    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "r");
 
-    if(escolha == 1){
-        printf("Qual indice você quer saber?\n");
-        escolha = 0;
-        scanf("%d", &escolha);
-        printf("Essa é a empresa: %s", empresa[escolha-1]);
+    for(cont=0;cont<3;cont++){
+        fread(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
+        printf("O valor da empresa %d é: %s\n", cont+1, empresa[cont]);
     }
 
-    if(escolha == 2){
-        printf("Qual indice você quer saber?");
-        escolha = 0;
-        scanf("%d", &escolha);
-        printf("Esse é o número: %s", empresa[escolha-1]);
+    fclose(arquivoEmpresa);
+
+    arquivoTelefone = fopen("ArquivoTelefone.txt", "r");
+
+    for(cont=0;cont<3;cont++){
+        fread(telefone[cont], sizeof(telefone[cont]), 1, arquivoTelefone);
+        printf("O valor do telefone %d é: %s\n", cont+1, telefone[cont]);
+    }
+
+    fclose(arquivoTelefone);
+
+}
+
+//Função para pesquisar um nome dentro dos arquivos
+//Status: Completo
+void pesquisarNomeCompleto(){
+
+    char nome[30];
+    getchar();
+
+    //Limpa o vetor
+    for(int cont=0;cont<30;cont++){
+        nome[cont] = 0;
+    }
+
+    printf("Digite um nome de empresa que será pesquisado: ");
+    gets(nome);
+
+    for(int cont=0;cont<3;cont++){
+        for(int cont2=0;cont2<30;cont2++){
+            if(nome[cont2] != empresa[cont][cont2]){
+                printf("A empresa %d não é igual ao valor\n", cont+1);
+                break;
+            }
+            if(cont2 == 29){
+                printf("A empresa %d é igual ao valor: %s\n", cont+1, empresa[cont]);
+            }
+        }
     }
 
 }
 
 //Função para pesquisar a partir de uma letra
-//Status: Funcionando, porém precisa ser alimentado pelo primeiro Item
-void pesquisarPrimeiraLetra(FILE *arquivoEmpresa1,
-                           FILE *arquivoEmpresa2,
-                           FILE *arquivoEmpresa3){
+//Status: Completo
+void pesquisarPrimeiraLetra(){
 
     char letra;
     int cont;
@@ -359,164 +219,74 @@ void pesquisarPrimeiraLetra(FILE *arquivoEmpresa1,
 
 //Função para alterar dados
 //Status: Completa
-void alterarDados(FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3){
+void alterarDados(){
 
-    int escolha;
-    char valor[30];
+    char nome[30];
+    getchar();
 
-    printf("Você quer editar uma empresa ou telefone?\n");
-    printf("1 > Empresa\n");
-    printf("2 > Telefone\n");
-    scanf("%d", &escolha);
-
-    if(escolha == 1){
-        printf("Qual indice você quer alterar?\n");
-        escolha = 0;
-        scanf("%d", &escolha);
-        printf("Digite o novo valor:\n");
-        scanf("%s", &valor);
-
-        switch(escolha){
-
-            case 1:
-                arquivoEmpresa1 = fopen("ArquivoEmpresa1.txt","w");
-                fwrite(valor, sizeof(char), 30, arquivoEmpresa1);
-                printf("Indice 1 editado com sucesso!\n");
-                fclose(arquivoEmpresa1);
-                break;
-
-            case 2:
-                arquivoEmpresa2 = fopen("ArquivoEmpresa2.txt","w");
-                fwrite(valor, sizeof(char), 30, arquivoEmpresa2);
-                printf("Indice 2 editado com sucesso!\n");
-                fclose(arquivoEmpresa2);
-                break;
-
-            case 3:
-                arquivoEmpresa3 = fopen("ArquivoEmpresa3.txt","w");
-                fwrite(valor, sizeof(char), 30, arquivoEmpresa3);
-                printf("Indice 3 editado com sucesso!\n");
-                fclose(arquivoEmpresa3);
-                break;
-        }
+    //Limpa o vetor
+    for(int cont=0;cont<30;cont++){
+        nome[cont] = 0;
     }
 
-    if(escolha == 2){
-        printf("Qual indice você quer editar?");
-        escolha = 0;
-        scanf("%d", &escolha);
-        printf("Digite o novo valor:\n");
-        scanf("%s", &valor);
+    printf("Digite um nome de empresa que será alterado: ");
+    gets(nome);
 
-        switch(escolha){
+    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
 
-            case 1:
-                arquivoTelefone1 = fopen("arquivoTelefone1.txt","w");
-                fwrite(valor, sizeof(char), 20, arquivoTelefone1);
-                printf("Indice 1 editar com sucesso!\n");
-                fclose(arquivoTelefone1);
+    for(int cont=0;cont<3;cont++){
+        for(int cont2=0;cont2<30;cont2++){
+            if(nome[cont2] != empresa[cont][cont2]){
+                printf("A empresa %d não será alterada\n", cont+1);
                 break;
-
-            case 2:
-                arquivoTelefone2 = fopen("arquivoTelefone2.txt","w");
-                fwrite(valor, sizeof(char), 20, arquivoTelefone2);
-                printf("Indice 2 editar com sucesso!\n");
-                fclose(arquivoTelefone2);
-                break;
-
-            case 3:
-                arquivoTelefone3 = fopen("arquivoTelefone3.txt","w");
-                fwrite(valor, sizeof(char), 20, arquivoTelefone3);
-                printf("Indice 3 editar com sucesso!\n");
-                fclose(arquivoTelefone3);
-                break;
+            }
+            if(cont2 == 29){
+                printf("A empresa %d será alterada\n", cont+1);
+                printf("Digite o novo valor: ");
+                gets(empresa[cont]);
+            }
         }
+
+        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
     }
+
+    fclose(arquivoEmpresa);
 
 }
 
 //Função para excluir dados
 //Status: Completa
-void excluiDados(FILE *arquivoEmpresa1,
-                 FILE *arquivoEmpresa2,
-                 FILE *arquivoEmpresa3,
-                 FILE *arquivoTelefone1,
-                 FILE *arquivoTelefone2,
-                 FILE *arquivoTelefone3){
+void excluiDados(){
 
-    int escolha;
+    char nome[30];
+    getchar();
 
-    printf("Você quer deletar uma empresa ou telefone?\n");
-    printf("1 > Empresa\n");
-    printf("2 > Telefone\n");
-    do{
-    scanf("%d", &escolha);
-    }while(escolha != 1 && escolha != 2);
-
-    if(escolha == 1){
-        printf("Qual indice você quer deletar?");
-        escolha = 0;
-        scanf("%d", &escolha);
-
-        switch(escolha){
-
-            case 1:
-                arquivoEmpresa1 = fopen("ArquivoEmpresa1.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoEmpresa1);
-                printf("Indice 1 exluido com sucesso!\n");
-                fclose(arquivoEmpresa1);
-                break;
-
-            case 2:
-                arquivoEmpresa2 = fopen("ArquivoEmpresa2.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoEmpresa2);
-                printf("Indice 2 exluido com sucesso!\n");
-                fclose(arquivoEmpresa2);
-                break;
-
-            case 3:
-                arquivoEmpresa3 = fopen("ArquivoEmpresa3.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoEmpresa3);
-                printf("Indice 3 exluido com sucesso!\n");
-                fclose(arquivoEmpresa3);
-                break;
-        }
+    //Limpa o vetor
+    for(int cont=0;cont<30;cont++){
+        nome[cont] = 0;
     }
 
-    if(escolha == 2){
-        printf("Qual indice você quer deletar?");
-        escolha = 0;
-        scanf("%d", &escolha);
+    printf("Digite um nome de empresa que será excluida: ");
+    gets(nome);
 
-        switch(escolha){
+    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
 
-            case 1:
-                arquivoTelefone1 = fopen("arquivoTelefone1.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoTelefone1);
-                printf("Indice 1 exluido com sucesso!\n");
-                fclose(arquivoTelefone1);
+    for(int cont=0;cont<3;cont++){
+        for(int cont2=0;cont2<30;cont2++){
+            if(nome[cont2] != empresa[cont][cont2]){
+                printf("A empresa %d não será excluido\n", cont+1);
                 break;
-
-            case 2:
-                arquivoTelefone2 = fopen("arquivoTelefone2.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoTelefone2);
-                printf("Indice 2 exluido com sucesso!\n");
-                fclose(arquivoTelefone2);
-                break;
-
-            case 3:
-                arquivoTelefone3 = fopen("arquivoTelefone3.txt","w");
-                fwrite(" ", sizeof(char), 20, arquivoTelefone3);
-                printf("Indice 3 exluido com sucesso!\n");
-                fclose(arquivoTelefone3);
-                break;
+            }
+            if(cont2 == 29){
+                printf("A empresa %d será excluida\n", cont+1);
+                for(int cont3=0;cont3<30;cont3++){
+                    empresa[cont][cont3] = 0;
+                }
+            }
         }
+        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
     }
 
+    fclose(arquivoEmpresa);
 }
 

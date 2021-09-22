@@ -6,7 +6,7 @@
 
 //Observações: Novamente, não sei exatamente como era para exibir os valores no ex2
 
-#define ex5
+#define ex1
 
 // -------------- Variáveis Globais ------------
 
