@@ -13,8 +13,7 @@ char empresa[3][30];
 char telefone[3][12];
 
 //Criação de 2 arquivos
-FILE *arquivoEmpresa;
-FILE *arquivoTelefone;
+FILE *arquivo;
 
 // --------------- Declaração das Funções Globais -------------
 
@@ -121,25 +120,21 @@ void escreverDados(){
         }
     }
 
-    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
+    arquivo = fopen("ArquivoPrincipal.txt", "w");
 
     for(cont=0;cont<3; cont++){
         printf("Digite o valor da empresa %d: \n", cont+1);
         gets(empresa[cont]);
-        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
+        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivo);
     }
 
-    fclose(arquivoEmpresa);
-
-    arquivoTelefone = fopen("ArquivoTelefone.txt", "w");
-
-    for(cont=0;cont<3;cont++){
+    for(cont=3;cont<6;cont++){
         printf("Digite o valor do telefone %d: \n", cont+1);
         gets(telefone[cont]);
-        fwrite(telefone[cont], sizeof(telefone[cont]), 1, arquivoTelefone);
+        fwrite(telefone[cont], sizeof(telefone[cont]), 1, arquivo);
     }
 
-    fclose(arquivoTelefone);
+    fclose(arquivo);
 
 }
 
@@ -149,23 +144,19 @@ void listarDados(){
 
     int cont;
 
-    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "r");
+    arquivo = fopen("ArquivoPrincipal.txt", "r");
 
     for(cont=0;cont<3;cont++){
-        fread(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
+        fread(empresa[cont], sizeof(empresa[cont]), 1, arquivo);
         printf("O valor da empresa %d é: %s\n", cont+1, empresa[cont]);
     }
 
-    fclose(arquivoEmpresa);
-
-    arquivoTelefone = fopen("ArquivoTelefone.txt", "r");
-
     for(cont=0;cont<3;cont++){
-        fread(telefone[cont], sizeof(telefone[cont]), 1, arquivoTelefone);
+        fread(telefone[cont], sizeof(telefone[cont]), 1, arquivo);
         printf("O valor do telefone %d é: %s\n", cont+1, telefone[cont]);
     }
 
-    fclose(arquivoTelefone);
+    fclose(arquivo);
 
 }
 
@@ -222,6 +213,7 @@ void pesquisarPrimeiraLetra(){
 void alterarDados(){
 
     char nome[30];
+    int valor;
     getchar();
 
     //Limpa o vetor
@@ -229,28 +221,78 @@ void alterarDados(){
         nome[cont] = 0;
     }
 
-    printf("Digite um nome de empresa que será alterado: ");
-    gets(nome);
+    printf("Você quer alterar o que?\n");
+    printf("1 > Empresa\n");
+    printf("2 > Número\n");
 
-    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
+    scanf("%d", &valor);
 
-    for(int cont=0;cont<3;cont++){
-        for(int cont2=0;cont2<30;cont2++){
-            if(nome[cont2] != empresa[cont][cont2]){
-                printf("A empresa %d não será alterada\n", cont+1);
-                break;
+    switch(valor){
+
+        case 1:
+
+            getchar();
+            printf("Digite um nome de empresa que será alterado: ");
+            gets(nome);
+
+            arquivo = fopen("ArquivoPrincipal.txt", "w");
+
+            for(int cont=0;cont<3;cont++){
+                for(int cont2=0;cont2<30;cont2++){
+                    if(nome[cont2] != empresa[cont][cont2]){
+                        printf("A empresa %d não será alterada\n", cont+1);
+                        break;
+                    }
+                    if(cont2 == 29){
+                        printf("A empresa %d será alterada\n", cont+1);
+                        printf("Digite o novo valor: ");
+                        gets(empresa[cont]);
+                    }
+                }
+
+                fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivo);
             }
-            if(cont2 == 29){
-                printf("A empresa %d será alterada\n", cont+1);
-                printf("Digite o novo valor: ");
-                gets(empresa[cont]);
-            }
-        }
 
-        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
+            fclose(arquivo);
+            break;
+
+        case 2:
+
+            getchar();
+            printf("Digite um número de telefone que será alterado: ");
+            gets(nome);
+
+            printf("%s\n", nome);
+
+            arquivo = fopen("ArquivoPrincipal.txt", "w");
+
+            for(int cont=0;cont<3; cont++){
+                fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivo);
+            }
+
+            for(int cont=0;cont<3;cont++){
+                for(int cont2=0;cont2<12;cont2++){
+                    if(nome[cont2] != telefone[cont][cont2]){
+                        printf("O telefone %d não será alterada\n", cont+1);
+                        break;
+                    }
+                    if(cont2 == 11){
+                        printf("O telefone %d será alterada\n", cont+1);
+                        printf("Digite o novo valor: ");
+                        gets(telefone[cont]);
+                    }
+                }
+
+                fwrite(telefone[cont], sizeof(telefone[cont]), 1, arquivo);
+            }
+
+            fclose(arquivo);
+            break;
+
+        default:
+            printf("Você não digitou um valor válido!\n");
+            break;
     }
-
-    fclose(arquivoEmpresa);
 
 }
 
@@ -269,7 +311,7 @@ void excluiDados(){
     printf("Digite um nome de empresa que será excluida: ");
     gets(nome);
 
-    arquivoEmpresa = fopen("ArquivoEmpresa.txt", "w");
+    arquivo = fopen("ArquivoPrincipal.txt", "w");
 
     for(int cont=0;cont<3;cont++){
         for(int cont2=0;cont2<30;cont2++){
@@ -284,9 +326,9 @@ void excluiDados(){
                 }
             }
         }
-        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivoEmpresa);
+        fwrite(empresa[cont], sizeof(empresa[cont]), 1, arquivo);
     }
 
-    fclose(arquivoEmpresa);
+    fclose(arquivo);
 }
 
