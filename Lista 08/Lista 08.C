@@ -850,7 +850,7 @@ OBS.: Todos os programa devem ser finalizados pelo usuario.
 
 1 - Receba um caracter via teclado usando ponteiros e compara com o vetor abaixo
     usando ponteiros. Mostre como resultado se EXISTE ou NAO EXISTE.
-    vetor -> b,d,f,h,j,l,m,o,q,s,u,w,y
+    vetor -> b,d,f,h,j,l,m,o,q,s,u,w,y 
 
 2 - Com a estrutura abaixo, defina um vetor de estruturas de 4 elementos.
     Receba os dados pelo teclado usando ponteiros e imprima-os no video
