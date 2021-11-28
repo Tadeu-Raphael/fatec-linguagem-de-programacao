@@ -7,7 +7,9 @@
 
 //O exercício 5 e 6 não consegui fazer por ter que fazer calculo com os ponteiros. Estou fazendo algo errado que está travando.
 
-#define ex5
+//Exercícios 5 e 6 foram feitos pelo Henrique Berg
+
+#define ex
 
 #ifdef ex1
 
@@ -247,74 +249,206 @@ int main()
 
 #ifdef ex5
 
-int main()
-{
+void main(){
+    while(1){
+        int number = 0;
+        int sum = 0;
+        float average = 0;
+        int quantity = 0;
+        int *pNumber = &number;
 
-    setlocale(LC_ALL, "");
-
-    int start;
-
-    do{
-
-    printf("\nBem vindo ao programa! Deseja executar? \n");
-    printf("1 - Sim\n");
-    printf("2 - Não\n");
-    scanf("%d%*c", &start);
-
-    if(start==1){
-
-            printf("Comece a digitar valores!\n");
-
-            int *aux1 = 0;
-            int *aux2 = 0;
-            int *aux3 = 0;
-            int *valor;
-
-            while(aux1 == 0){
-
-                scanf("%d", &valor);
-                if(*valor >= 0){
-                    //aux2 = *aux2 + *valor;
-                    aux3++;
-                }
-
-                if(*valor < 0){
-                    aux1++;
-                }
-
+        while(1){
+            printf("Digite um numero: ");
+            scanf("%d", pNumber);
+            if(*pNumber < 0){
+                break;
             }
+            sum += *pNumber;
+            quantity++;
+        }
+        if(quantity == 0){
+            average = 0;
+        }
+        else{
+            average = sum / quantity;
+        }
 
-            printf("Saiu do loop");
-            printf("%d", aux2);
+        printf("A media dos numeros e: %.2f\n", average);
+        if(endProgram()){
+            printf("\nPrograma finalizado. Obrigado.");
+            break;
+        }
+        else{
+            getchar();
+        }
+    }
 
-    }} while(start!=2);
-
-    return 0;
 }
 
 #endif // ex5
 
 #ifdef ex6
 
-int main()
-{
+int main(){
+    while(1){
+        struct Date {
+            int day;
+            int month;
+            int year;
+        };
 
-    setlocale(LC_ALL, "");
+        struct Date dates[2];
+        struct Date *pDates = &dates;
+        long diffInDays = 0;
+        long *pDiffInDays = &diffInDays;
+        for(int i = 0; i < 2; i++){
+            do{
+                printf("Digite o %do dia: ", i+1);
+                scanf("%d", &pDates[i].day);
+            }while(pDates[i].day <= 0 || pDates[i].day > 31);
+            do{
+                printf("Digite o %do mes: ", i+1);
+                scanf("%d", &pDates[i].month);
+            }while(pDates[i].month <= 0 || pDates[i].month > 12);
+            do{
+                printf("Digite o %do ano: ", i+1);
+                scanf("%d", &pDates[i].year);
+            }while(pDates[i].year <= 0 || pDates[i].year > 3000);
+            printf("Data %d: %d/%d/%d \n", i+1, pDates[i].day, pDates[i].month, pDates[i].year);
+        }
 
-    int start;
+        if(pDates[0].year > pDates[1].year){
+            if(pDates[0].month > pDates[1].month){
+                if(pDates[0].day > pDates[1].day) //Ex 1: 20/4/2018 - 10/3/2017 = 405
+                {
+                    diffInDays += pDates[0].day - pDates[1].day;
+                    diffInDays += 30 * (pDates[0].month - pDates[1].month);
+                    diffInDays += 365 * (pDates[0].year - pDates[1].year);
+                }
+                else{
+                    if(pDates[0].day < pDates[1].day){ //Ex 2: 10/4/2018 - 20/3/2017 = 385
+                        diffInDays += (pDates[0].day + 30) - pDates[1].day;
+                        diffInDays += 30 * (pDates[0].month - pDates[1].month - 1);
+                        diffInDays += 365 * (pDates[0].year - pDates[1].year);
+                    }
+                    else{ //Ex 3: 10/4/2018 - 10/3/2017 = 395
+                        diffInDays += 30 * (pDates[0].month - pDates[1].month);
+                        diffInDays += 365 * (pDates[0].year - pDates[1].year);
+                    }
+                }
+            }
+            else{
+                if(pDates[0].day > pDates[1].day) //Ex 4: 20/3/2018 - 10/4/2017 = 340
+                {
+                    diffInDays += pDates[0].day - pDates[1].day;
+                    diffInDays += 30 * ((pDates[0].month + 12) - pDates[1].month);
+                    diffInDays += 365 * (pDates[0].year - pDates[1].year - 1);
+                }
+                else{
+                    if(pDates[0].day < pDates[1].day){ //Ex 5: 10/3/2018 - 20/4/2017 = 320
+                        diffInDays += (pDates[0].day + 30) - pDates[1].day;
+                        diffInDays += 30 * ((pDates[0].month + 12) - pDates[1].month - 1);
+                        diffInDays += 365 * (pDates[0].year - pDates[1].year - 1);
+                    }
+                    else{ //Ex 6: 10/3/2018 - 10/4/2017 = 330
+                        diffInDays += 30 * ((pDates[0].month + 12) - pDates[1].month);
+                        diffInDays += 365 * (pDates[0].year - pDates[1].year - 1);
+                    }
+                }
+            }
+        }
+        else{
+            if(pDates[0].year < pDates[1].year){
+                if(pDates[0].month < pDates[1].month){
+                    if(pDates[0].day < pDates[1].day) //Ex 7: 10/3/2018 - 20/4/2019 = 405
+                    {
+                        diffInDays += pDates[1].day - pDates[0].day;
+                        diffInDays += 30 * (pDates[1].month - pDates[0].month);
+                        diffInDays += 365 * (pDates[1].year - pDates[0].year);
+                    }
+                    else{
+                        if(pDates[0].day > pDates[1].day){ //Ex 8: 20/3/2018 - 10/4/2019 = 385
+                            diffInDays += (pDates[1].day + 30) - pDates[0].day;
+                            diffInDays += 30 * (pDates[1].month - pDates[0].month - 1);
+                            diffInDays += 365 * (pDates[1].year - pDates[0].year);
+                        }
+                        else{ //Ex 9: 10/3/2018 - 10/4/2019 = 395
+                            diffInDays += 30 * (pDates[1].month - pDates[0].month);
+                            diffInDays += 365 * (pDates[1].year - pDates[0].year);
+                        }
+                    }
+                }
+                else{
+                    if(pDates[0].day < pDates[1].day) //Ex 10: 10/4/2017 - 20/3/2018  = 340
+                    {
+                        diffInDays += pDates[1].day - pDates[0].day;
+                        diffInDays += 30 * ((pDates[1].month + 12) - pDates[0].month);
+                        diffInDays += 365 * (pDates[1].year - pDates[0].year - 1);
+                    }
+                    else{
+                        if(pDates[0].day > pDates[1].day){ //Ex 11: 20/4/2017 - 10/3/2018 = 320
+                            diffInDays += (pDates[1].day + 30) - pDates[0].day;
+                            diffInDays += 30 * ((pDates[1].month + 12) - pDates[0].month - 1);
+                            diffInDays += 365 * (pDates[1].year - pDates[0].year - 1);
+                        }
+                        else{ //Ex 12: 10/4/2017 - 10/3/2018 = 330
+                            diffInDays += 30 * ((pDates[1].month + 12) - pDates[0].month);
+                            diffInDays += 365 * (pDates[1].year - pDates[0].year - 1);
+                        }
+                    }
+                }
+            }
+            else{
+                if(pDates[0].month > pDates[1].month){
+                    if(pDates[0].day > pDates[1].day){  // Ex 13: 20/4/2018 - 10/3/2018 = 40
+                        diffInDays += pDates[0].day - pDates[1].day;
+                        diffInDays += 30 * (pDates[0].month - pDates[1].month);
+                    }
+                    else{
+                        if(pDates[0].day < pDates[1].day){ // Ex 1=4: 10/4/2018 - 20/3/2018 = 20
+                            diffInDays += (pDates[0].day + 30) - pDates[1].day;
+                            diffInDays += 30 * (pDates[0].month - pDates[1].month - 1);
+                        }
+                        else{   // Ex 15 : 10/4/2018 - 10/3/2018 = 30
+                            diffInDays += 30 * (pDates[0].month - pDates[1].month);
+                        }
+                    }
+                }
+                else{
+                    if(pDates[0].day < pDates[1].day){ // Ex 16: 20/3/2018 - 10/4/2018 = 20
+                        diffInDays += pDates[1].day - pDates[0].day;
+                        diffInDays += 30 * (pDates[1].month - pDates[0].month);
+                    }
+                    else{
+                        if(pDates[0].day > pDates[1].day){ // Ex 17: 10/3/2018 - 20/4/2018 = 40
+                            diffInDays += (pDates[1].day + 30) - pDates[0].day;
+                            diffInDays += 30 * (pDates[1].month - pDates[0].month - 1);
+                        }
+                        else{    // Ex 18 : 10/3/2018 - 10/4/2018 = 30
+                            diffInDays += 30 * (pDates[1].month - pDates[0].month);
+                        }
+                    }
+                }
+            }
+        }
 
-    do{
 
-    printf("\nBem vindo ao programa! Deseja executar? \n");
-    printf("1 - Sim\n");
-    printf("2 - Não\n");
-    scanf("%d%*c", &start);
-
-    if(start==1){
-
-    }} while(start!=2);
-
-    return 0;
+        printf("Diferenca entre datas em dias: %ld\n", *pDiffInDays);
+        if(endProgram()){
+            printf("\nPrograma finalizado. Obrigado.");
+            break;
+        }
+        else{
+            getchar();
+        }
+    }
 }
 
 #endif // ex6
+
+int endProgram(){
+    int exitOption = 0;
+    printf("Voce deseja finalizar o programa? Digite 1 para sim e qualquer numero para nao: ");
+    scanf("%d", &exitOption);
+    return exitOption == 1 ? 1 : 0;
+}
